@@ -57,4 +57,4 @@ To install Saraff.Twain.NET, run the following command in the [Package Manager C
 PM> Install-Package Saraff.Twain.Extensions
 ```
 Also, you can see: 
-* [[Saraff.Twain.NET Extensions Samples (LINQ to TWAIN) | cs-extensions]] **(NEW. 29.06.2017)**[...](https://github.com/saraff-9EB1047A4BEB4cef8506B29BA325BD5A/Saraff.Twain.NET/wiki/cs-extensions)
+* [Saraff.Twain.NET Extensions Samples (LINQ to TWAIN)](https://github.com/saraff-9EB1047A4BEB4cef8506B29BA325BD5A/Saraff.Twain.NET/wiki/cs-extensions)
