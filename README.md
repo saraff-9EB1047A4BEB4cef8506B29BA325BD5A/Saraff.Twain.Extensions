@@ -2,7 +2,7 @@
 Saraff.Twain.NET Extensions (LINQ to TWAIN).
 
 ```c#
-// get array of a Data Sources and add range it to a ComboBox
+// Get array of a Data Sources and add range it to a ComboBox
 this.dsComboBox.Items.AddRange(
     this.Dsm.DataSources
         .Select(x => x.Identity.Name)
@@ -10,12 +10,12 @@ this.dsComboBox.Items.AddRange(
 ```
 
 ```c#
-// get values of a X Resolution
+// Get values of a X Resolution
 var _resolutions = this.Dsm
     .DataSources.ElementAtOrDefault(this.dsComboBox.SelectedIndex)?
     .GetCapability<float>(TwCap.XResolution).Values;
 
-// create array a ToolStripItem items and add range it to a DropDownButton
+// Create array a ToolStripItem items and add range it to a DropDownButton
 this.resolutionToolStripDropDownButton.DropDownItems.AddRange(
     _resolutions?
         .Where(x => _resolutions.Count()<20 ? true : x.Value%100==0)
@@ -40,7 +40,7 @@ this.Dsm.DataSources.ElementAtOrDefault(this.dsComboBox.SelectedIndex)?.NativeTr
 
 ```c#
 // Acquire image
-_dsm.DataSources.ElementAtOrDefault(_dsIndex) // get a Data Source
+this.Dsm.DataSources.ElementAtOrDefault(_dsIndex)? // get a Data Source
     .GetCapability<float>(TwCap.XResolution).Set(x => 300f).DataSource // set a X Resolution to 300 dpi
     .GetCapability<float>(TwCap.YResolution).Set(x => 300f).DataSource // set a Y Resolution to 300 dpi
     .GetCapability<TwPixelType>(TwCap.IPixelType).Set(x => TwPixelType.RGB).DataSource // set a Pixel Type to a RGB
