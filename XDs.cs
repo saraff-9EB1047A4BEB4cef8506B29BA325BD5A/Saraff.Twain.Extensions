@@ -147,7 +147,7 @@ namespace Saraff.Twain.Extensions {
         /// </value>
         public bool IsDefault {
             get {
-                return this.Dsm.Twain32.SourceIndex==this._index;
+                return this.Dsm.Twain32.GetDefaultSource()==this._index;
             }
         }
 
