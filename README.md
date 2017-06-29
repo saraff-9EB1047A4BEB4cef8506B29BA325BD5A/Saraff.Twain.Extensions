@@ -2,7 +2,7 @@
 Saraff.Twain.NET Extensions (LINQ to TWAIN).
 
 ```c#
-// get array of a Data Sources and add range it to a ComboBox
+// Get array of a Data Sources and add range it to a ComboBox
 this.dsComboBox.Items.AddRange(
     this.Dsm.DataSources
         .Select(x => x.Identity.Name)
@@ -10,12 +10,12 @@ this.dsComboBox.Items.AddRange(
 ```
 
 ```c#
-// get values of a X Resolution
+// Get values of a X Resolution
 var _resolutions = this.Dsm
     .DataSources.ElementAtOrDefault(this.dsComboBox.SelectedIndex)?
     .GetCapability<float>(TwCap.XResolution).Values;
 
-// create array a ToolStripItem items and add range it to a DropDownButton
+// Create array a ToolStripItem items and add range it to a DropDownButton
 this.resolutionToolStripDropDownButton.DropDownItems.AddRange(
     _resolutions?
         .Where(x => _resolutions.Count()<20 ? true : x.Value%100==0)
