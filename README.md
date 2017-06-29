@@ -40,7 +40,7 @@ this.Dsm.DataSources.ElementAtOrDefault(this.dsComboBox.SelectedIndex)?.NativeTr
 
 ```c#
 // Acquire image
-this.Dsm.DataSources.ElementAtOrDefault(_dsIndex) // get a Data Source
+this.Dsm.DataSources.ElementAtOrDefault(_dsIndex)? // get a Data Source
     .GetCapability<float>(TwCap.XResolution).Set(x => 300f).DataSource // set a X Resolution to 300 dpi
     .GetCapability<float>(TwCap.YResolution).Set(x => 300f).DataSource // set a Y Resolution to 300 dpi
     .GetCapability<TwPixelType>(TwCap.IPixelType).Set(x => TwPixelType.RGB).DataSource // set a Pixel Type to a RGB
