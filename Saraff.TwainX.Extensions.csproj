@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Description>Saraff.TwainX.NET Extensions (LINQ to TWAIN).</Description>
+    <Version>1.0.2.616</Version>
+    <AssemblyVersion>1.0.2.616</AssemblyVersion>
+    <FileVersion>1.0.2.616</FileVersion>
+    <Company>SARAFF SOFTWARE</Company>
+    <Authors>Copyright © SARAFF 2017</Authors>
+    <Copyright>Copyright © SARAFF 2017</Copyright>
+    <PackageLicenseUrl>http://www.gnu.org/licenses/lgpl-3.0.txt</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/saraff-9EB1047A4BEB4cef8506B29BA325BD5A/Saraff.Twain.Extensions</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/saraff-9EB1047A4BEB4cef8506B29BA325BD5A/Saraff.Twain.Extensions</RepositoryUrl>
+    <PackageTags>TWAIN TWAIN.NET C# .NET scan LINQ Extensions .NETCore .NETStandard</PackageTags>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>sign.snk</AssemblyOriginatorKeyFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="COPYING.LESSER.txt" />
+    <None Remove="COPYING.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="COPYING.LESSER.txt" />
+    <Content Include="COPYING.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Saraff.TwainX.NET" Version="1.0.27.614" />
+  </ItemGroup>
+
+</Project>

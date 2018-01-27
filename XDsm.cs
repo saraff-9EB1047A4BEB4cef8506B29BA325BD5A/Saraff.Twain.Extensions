@@ -1,11 +1,11 @@
 ﻿/* Этот файл является частью библиотеки Saraff.Twain.Extensions
  * © SARAFF SOFTWARE (Кирножицкий Андрей), 2017.
- * Saraff.Twain.Extensions - свободная программа: вы можете перераспространять ее и/или
+ * Saraff.TwainX.Extensions - свободная программа: вы можете перераспространять ее и/или
  * изменять ее на условиях Меньшей Стандартной общественной лицензии GNU в том виде,
  * в каком она была опубликована Фондом свободного программного обеспечения;
  * либо версии 3 лицензии, либо (по вашему выбору) любой более поздней
  * версии.
- * Saraff.Twain.Extensions распространяется в надежде, что она будет полезной,
+ * Saraff.TwainX.Extensions распространяется в надежде, что она будет полезной,
  * но БЕЗО ВСЯКИХ ГАРАНТИЙ; даже без неявной гарантии ТОВАРНОГО ВИДА
  * или ПРИГОДНОСТИ ДЛЯ ОПРЕДЕЛЕННЫХ ЦЕЛЕЙ. Подробнее см. в Меньшей Стандартной
  * общественной лицензии GNU.
@@ -15,16 +15,16 @@
  * 
  * This file is part of Saraff.Twain.Extensions.
  * © SARAFF SOFTWARE (Kirnazhytski Andrei), 2017.
- * Saraff.Twain.Extensions is free software: you can redistribute it and/or modify
+ * Saraff.TwainX.Extensions is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * Saraff.Twain.Extensions is distributed in the hope that it will be useful,
+ * Saraff.TwainX.Extensions is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
  * You should have received a copy of the GNU Lesser General Public License
- * along with Saraff.Twain.Extensions. If not, see <http://www.gnu.org/licenses/>.
+ * along with Saraff.TwainX.Extensions. If not, see <http://www.gnu.org/licenses/>.
  * 
  * PLEASE SEND EMAIL TO:  twain@saraff.ru.
  */
@@ -34,7 +34,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
-namespace Saraff.Twain.Extensions {
+namespace Saraff.TwainX.Extensions {
 
     /// <summary>
     /// Represent a Data Source Manager of a TWAIN.
@@ -42,7 +42,7 @@ namespace Saraff.Twain.Extensions {
     /// <seealso cref="System.ComponentModel.Component" />
     public sealed class XDsm:Component {
         private bool _isOwns=false;
-        private Twain32 _twain32 = null;
+        private TwainX _twainX = null;
 
         private XDsm() {
         }
@@ -50,15 +50,13 @@ namespace Saraff.Twain.Extensions {
         /// <summary>
         /// Create instance of a XDsm class.
         /// </summary>
-        /// <param name="isTwain2Enable">if set to <c>true</c> is a TWAIN2.x enable.</param>
         /// <param name="isShowUI">if set to <c>true</c> is show UI of a Data Source.</param>
         /// <param name="language">The language.</param>
         /// <param name="country">The country.</param>
         /// <returns></returns>
-        public static XDsm Create(bool isTwain2Enable = false,bool isShowUI = true,TwLanguage language = TwLanguage.RUSSIAN,TwCountry country = TwCountry.BELARUS) {
+        public static XDsm Create(bool isShowUI = false,TwLanguage language = TwLanguage.RUSSIAN,TwCountry country = TwCountry.BELARUS) {
             return XDsm.Create(
-                new Twain32 {
-                    IsTwain2Enable=isTwain2Enable,
+                new TwainX {
                     ShowUI=isShowUI,
                     Language=language,
                     Country=country
@@ -69,51 +67,51 @@ namespace Saraff.Twain.Extensions {
         /// <summary>
         /// Create instance of a XDsm class.
         /// </summary>
-        /// <param name="twain32">Instance of the Twain32 class.</param>
-        /// <param name="isOwns">If set to <c>true</c> is owner of instance of the Twain32 class.</param>
+        /// <param name="twainX">Instance of the TwainX class.</param>
+        /// <param name="isOwns">If set to <c>true</c> is owner of instance of the TwainX class.</param>
         /// <returns></returns>
-        public static XDsm Create(Twain32 twain32,bool isOwns = false) {
+        public static XDsm Create(TwainX twainx,bool isOwns = false) {
             XDsm _dsm = null;
             try {
                 return _dsm=new XDsm {
-                    _twain32=twain32,
+                    _twainX=twainx,
                     _isOwns=isOwns
                 };
             } finally {
-                twain32.EndXfer+=_dsm._EndXfer;
-                twain32.XferDone+=_dsm._XferDone;
-                twain32.SetupMemXferEvent+=_dsm._SetupMemXferEvent;
-                twain32.MemXferEvent+=_dsm._MemXferEvent;
-                twain32.SetupFileXferEvent+=_dsm._SetupFileXferEvent;
-                twain32.FileXferEvent+=_dsm._FileXferEvent;
-                twain32.AcquireCompleted+=_dsm._AcquireCompleted;
-                twain32.AcquireError+=_dsm._AcquireError;
+                twainx.EndXfer+=_dsm._EndXfer;
+                twainx.XferDone+=_dsm._XferDone;
+                twainx.SetupMemXferEvent+=_dsm._SetupMemXferEvent;
+                twainx.MemXferEvent+=_dsm._MemXferEvent;
+                twainx.SetupFileXferEvent+=_dsm._SetupFileXferEvent;
+                twainx.FileXferEvent+=_dsm._FileXferEvent;
+                twainx.AcquireCompleted+=_dsm._AcquireCompleted;
+                twainx.AcquireError+=_dsm._AcquireError;
             }
         }
 
         #region Events Handlers
 
-        private void _EndXfer(object sender,Twain32.EndXferEventArgs e) {
+        private void _EndXfer(object sender,TwainX.EndXferEventArgs e) {
             this.NativeTransferCallback?.Invoke(e);
         }
 
-        private void _SetupMemXferEvent(object sender,Twain32.SetupMemXferEventArgs e) {
+        private void _SetupMemXferEvent(object sender,TwainX.SetupMemXferEventArgs e) {
             this.SetupMemoryTransferCallback?.Invoke(e);
         }
 
-        private void _MemXferEvent(object sender,Twain32.MemXferEventArgs e) {
+        private void _MemXferEvent(object sender,TwainX.MemXferEventArgs e) {
             this.MemoryTransferCallback?.Invoke(e);
         }
 
-        private void _SetupFileXferEvent(object sender,Twain32.SetupFileXferEventArgs e) {
+        private void _SetupFileXferEvent(object sender,TwainX.SetupFileXferEventArgs e) {
             this.SetupFileTransferCallback?.Invoke(e);
         }
 
-        private void _FileXferEvent(object sender,Twain32.FileXferEventArgs e) {
+        private void _FileXferEvent(object sender,TwainX.FileXferEventArgs e) {
             this.FileTransferCallback?.Invoke(e);
         }
 
-        private void _XferDone(object sender,Twain32.XferDoneEventArgs e) {
+        private void _XferDone(object sender,TwainX.XferDoneEventArgs e) {
             this.ImageInfoCallback?.Invoke(e);
         }
 
@@ -121,7 +119,7 @@ namespace Saraff.Twain.Extensions {
             this.AcquireCompletedCallback?.Invoke();
         }
 
-        private void _AcquireError(object sender,Twain32.AcquireErrorEventArgs e) {
+        private void _AcquireError(object sender,TwainX.AcquireErrorEventArgs e) {
             this.AcquireErrorCallback?.Invoke(e);
         }
 
@@ -142,7 +140,7 @@ namespace Saraff.Twain.Extensions {
                 this.AcquireCompletedCallback=null;
                 this.AcquireErrorCallback=null;
                 if(this._isOwns) {
-                    this.Twain32?.Dispose();
+                    this.TwainX?.Dispose();
                 }
             }
             base.Dispose(disposing);
@@ -156,7 +154,7 @@ namespace Saraff.Twain.Extensions {
         /// </value>
         public IEnumerable<XDs> DataSources {
             get {
-                for(var i = 0; i<this.Twain32.SourcesCount; i++) {
+                for(var i = 0; i<this.TwainX.SourcesCount; i++) {
                     yield return XDs.Create(this,i);
                 }
                 yield break;
@@ -164,61 +162,49 @@ namespace Saraff.Twain.Extensions {
         }
 
         /// <summary>
-        /// Gets a value indicating whether this instance is TWAIN2.x supported.
+        /// Gets instance of the TwainX class.
         /// </summary>
         /// <value>
-        /// <c>true</c> if this instance is TWAIN2.x supported; otherwise, <c>false</c>.
-        /// </value>
-        public bool IsTwain2Supported {
-            get {
-                return this.Twain32.IsTwain2Supported;
-            }
-        }
-
-        /// <summary>
-        /// Gets instance of the Twain32 class.
-        /// </summary>
-        /// <value>
-        /// The Twain32 class.
+        /// The TwainX class.
         /// </value>
         /// <exception cref="System.InvalidOperationException">DSM don't open.</exception>
-        public Twain32 Twain32 {
+        public TwainX TwainX {
             get {
-                if(!this._twain32.OpenDSM()) {
+                if(!this._twainX.OpenDSM()) {
                     throw new InvalidOperationException("DSM don't open.");
                 }
-                return this._twain32;
+                return this._twainX;
             }
         }
 
         #region Callback Handlers
 
-        internal Action<Twain32.EndXferEventArgs> NativeTransferCallback {
+        internal Action<TwainX.EndXferEventArgs> NativeTransferCallback {
             get;
             set;
         }
 
-        internal Action<Twain32.SetupMemXferEventArgs> SetupMemoryTransferCallback {
+        internal Action<TwainX.SetupMemXferEventArgs> SetupMemoryTransferCallback {
             get;
             set;
         }
 
-        internal Action<Twain32.MemXferEventArgs> MemoryTransferCallback {
+        internal Action<TwainX.MemXferEventArgs> MemoryTransferCallback {
             get;
             set;
         }
 
-        internal Action<Twain32.SetupFileXferEventArgs> SetupFileTransferCallback {
+        internal Action<TwainX.SetupFileXferEventArgs> SetupFileTransferCallback {
             get;
             set;
         }
 
-        internal Action<Twain32.FileXferEventArgs> FileTransferCallback {
+        internal Action<TwainX.FileXferEventArgs> FileTransferCallback {
             get;
             set;
         }
 
-        internal Action<Twain32.XferDoneEventArgs> ImageInfoCallback {
+        internal Action<TwainX.XferDoneEventArgs> ImageInfoCallback {
             get;
             set;
         }
@@ -228,7 +214,7 @@ namespace Saraff.Twain.Extensions {
             set;
         }
 
-        internal Action<Twain32.AcquireErrorEventArgs> AcquireErrorCallback {
+        internal Action<TwainX.AcquireErrorEventArgs> AcquireErrorCallback {
             get;
             set;
         }

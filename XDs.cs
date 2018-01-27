@@ -1,11 +1,11 @@
 ﻿/* Этот файл является частью библиотеки Saraff.Twain.Extensions
  * © SARAFF SOFTWARE (Кирножицкий Андрей), 2017.
- * Saraff.Twain.Extensions - свободная программа: вы можете перераспространять ее и/или
+ * Saraff.TwainX.Extensions - свободная программа: вы можете перераспространять ее и/или
  * изменять ее на условиях Меньшей Стандартной общественной лицензии GNU в том виде,
  * в каком она была опубликована Фондом свободного программного обеспечения;
  * либо версии 3 лицензии, либо (по вашему выбору) любой более поздней
  * версии.
- * Saraff.Twain.Extensions распространяется в надежде, что она будет полезной,
+ * Saraff.TwainX.Extensions распространяется в надежде, что она будет полезной,
  * но БЕЗО ВСЯКИХ ГАРАНТИЙ; даже без неявной гарантии ТОВАРНОГО ВИДА
  * или ПРИГОДНОСТИ ДЛЯ ОПРЕДЕЛЕННЫХ ЦЕЛЕЙ. Подробнее см. в Меньшей Стандартной
  * общественной лицензии GNU.
@@ -15,16 +15,16 @@
  * 
  * This file is part of Saraff.Twain.Extensions.
  * © SARAFF SOFTWARE (Kirnazhytski Andrei), 2017.
- * Saraff.Twain.Extensions is free software: you can redistribute it and/or modify
+ * Saraff.TwainX.Extensions is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * Saraff.Twain.Extensions is distributed in the hope that it will be useful,
+ * Saraff.TwainX.Extensions is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
  * You should have received a copy of the GNU Lesser General Public License
- * along with Saraff.Twain.Extensions. If not, see <http://www.gnu.org/licenses/>.
+ * along with Saraff.TwainX.Extensions. If not, see <http://www.gnu.org/licenses/>.
  * 
  * PLEASE SEND EMAIL TO:  twain@saraff.ru.
  */
@@ -33,9 +33,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Windows.Media;
 
-namespace Saraff.Twain.Extensions {
+namespace Saraff.TwainX.Extensions {
 
     /// <summary>
     /// Represent a Data Source of a TWAIN.
@@ -76,13 +75,13 @@ namespace Saraff.Twain.Extensions {
         /// <param name="imageInfoCallback">The image information callback.</param>
         /// <param name="completeCallback">The complete callback.</param>
         /// <param name="errorCallback">The error callback.</param>
-        public void NativeTransfer(Action<Twain32.EndXferEventArgs> result,Action<Twain32.XferDoneEventArgs> imageInfoCallback = null,Action completeCallback = null,Action<Twain32.AcquireErrorEventArgs> errorCallback = null) {
-            this.Twain32.Capabilities.XferMech.Set(TwSX.Native);
+        public void NativeTransfer(Action<TwainX.EndXferEventArgs> result,Action<TwainX.XferDoneEventArgs> imageInfoCallback = null,Action completeCallback = null,Action<TwainX.AcquireErrorEventArgs> errorCallback = null) {
+            this.TwainX.Capabilities.XferMech.Set(TwSX.Native);
             this.Dsm.NativeTransferCallback=result;
             this.Dsm.ImageInfoCallback=imageInfoCallback;
             this.Dsm.AcquireCompletedCallback=completeCallback;
             this.Dsm.AcquireErrorCallback=errorCallback;
-            this.Twain32.Acquire();
+            this.TwainX.Acquire();
         }
 
         /// <summary>
@@ -93,14 +92,14 @@ namespace Saraff.Twain.Extensions {
         /// <param name="imageInfoCallback">The image information callback.</param>
         /// <param name="completeCallback">The complete callback.</param>
         /// <param name="errorCallback">The error callback.</param>
-        public void MemoryTransfer(Action<Twain32.SetupMemXferEventArgs> setupCallback,Action<Twain32.MemXferEventArgs> transferCallback,Action<Twain32.XferDoneEventArgs> imageInfoCallback = null,Action completeCallback = null,Action<Twain32.AcquireErrorEventArgs> errorCallback = null) {
-            this.Twain32.Capabilities.XferMech.Set(TwSX.Memory);
+        public void MemoryTransfer(Action<TwainX.SetupMemXferEventArgs> setupCallback,Action<TwainX.MemXferEventArgs> transferCallback,Action<TwainX.XferDoneEventArgs> imageInfoCallback = null,Action completeCallback = null,Action<TwainX.AcquireErrorEventArgs> errorCallback = null) {
+            this.TwainX.Capabilities.XferMech.Set(TwSX.Memory);
             this.Dsm.SetupMemoryTransferCallback=setupCallback;
             this.Dsm.MemoryTransferCallback=transferCallback;
             this.Dsm.ImageInfoCallback=imageInfoCallback;
             this.Dsm.AcquireCompletedCallback=completeCallback;
             this.Dsm.AcquireErrorCallback=errorCallback;
-            this.Twain32.Acquire();
+            this.TwainX.Acquire();
         }
 
         /// <summary>
@@ -111,14 +110,14 @@ namespace Saraff.Twain.Extensions {
         /// <param name="imageInfoCallback">The image information callback.</param>
         /// <param name="completeCallback">The complete callback.</param>
         /// <param name="errorCallback">The error callback.</param>
-        public void MemFileTransfer(Action<Twain32.SetupMemXferEventArgs> setupCallback,Action<Twain32.MemXferEventArgs> transferCallback,Action<Twain32.XferDoneEventArgs> imageInfoCallback = null,Action completeCallback = null,Action<Twain32.AcquireErrorEventArgs> errorCallback = null) {
-            this.Twain32.Capabilities.XferMech.Set(TwSX.MemFile);
+        public void MemFileTransfer(Action<TwainX.SetupMemXferEventArgs> setupCallback,Action<TwainX.MemXferEventArgs> transferCallback,Action<TwainX.XferDoneEventArgs> imageInfoCallback = null,Action completeCallback = null,Action<TwainX.AcquireErrorEventArgs> errorCallback = null) {
+            this.TwainX.Capabilities.XferMech.Set(TwSX.MemFile);
             this.Dsm.SetupMemoryTransferCallback=setupCallback;
             this.Dsm.MemoryTransferCallback=transferCallback;
             this.Dsm.ImageInfoCallback=imageInfoCallback;
             this.Dsm.AcquireCompletedCallback=completeCallback;
             this.Dsm.AcquireErrorCallback=errorCallback;
-            this.Twain32.Acquire();
+            this.TwainX.Acquire();
         }
 
         /// <summary>
@@ -129,14 +128,14 @@ namespace Saraff.Twain.Extensions {
         /// <param name="imageInfoCallback">The image information callback.</param>
         /// <param name="completeCallback">The complete callback.</param>
         /// <param name="errorCallback">The error callback.</param>
-        public void FileTransfer(Action<Twain32.SetupFileXferEventArgs> setupCallback,Action<Twain32.FileXferEventArgs> transferCallback,Action<Twain32.XferDoneEventArgs> imageInfoCallback = null,Action completeCallback = null,Action<Twain32.AcquireErrorEventArgs> errorCallback = null) {
-            this.Twain32.Capabilities.XferMech.Set(TwSX.File);
+        public void FileTransfer(Action<TwainX.SetupFileXferEventArgs> setupCallback,Action<TwainX.FileXferEventArgs> transferCallback,Action<TwainX.XferDoneEventArgs> imageInfoCallback = null,Action completeCallback = null,Action<TwainX.AcquireErrorEventArgs> errorCallback = null) {
+            this.TwainX.Capabilities.XferMech.Set(TwSX.File);
             this.Dsm.SetupFileTransferCallback=setupCallback;
             this.Dsm.FileTransferCallback=transferCallback;
             this.Dsm.ImageInfoCallback=imageInfoCallback;
             this.Dsm.AcquireCompletedCallback=completeCallback;
             this.Dsm.AcquireErrorCallback=errorCallback;
-            this.Twain32.Acquire();
+            this.TwainX.Acquire();
         }
 
         /// <summary>
@@ -147,7 +146,7 @@ namespace Saraff.Twain.Extensions {
         /// </value>
         public bool IsDefault {
             get {
-                return this.Dsm.Twain32.GetDefaultSource()==this._index;
+                return this.Dsm.TwainX.GetDefaultSource()==this._index;
             }
         }
 
@@ -159,7 +158,7 @@ namespace Saraff.Twain.Extensions {
         /// </value>
         public bool IsTwain2Compatible {
             get {
-                return this.Dsm.Twain32.GetIsSourceTwain2Compatible(this._index);
+                return this.Dsm.TwainX.GetIsSourceTwain2Compatible(this._index);
             }
         }
 
@@ -169,9 +168,9 @@ namespace Saraff.Twain.Extensions {
         /// <value>
         /// The identity.
         /// </value>
-        public Twain32.Identity Identity {
+        public TwainX.Identity Identity {
             get {
-                return this.Dsm.Twain32.GetSourceIdentity(this._index);
+                return this.Dsm.TwainX.GetSourceIdentity(this._index);
             }
         }
 
@@ -187,20 +186,20 @@ namespace Saraff.Twain.Extensions {
         }
 
         /// <summary>
-        /// Gets instance of the Twain32 class.
+        /// Gets instance of the TwainX class.
         /// </summary>
         /// <value>
-        /// The Twain32 class.
+        /// The TwainX class.
         /// </value>
         /// <exception cref="System.InvalidOperationException">DSM don't open.</exception>
-        public Twain32 Twain32 {
+        public TwainX TwainX {
             get {
-                if(this.Dsm.Twain32.SourceIndex!=this._index) {
-                    this.Dsm.Twain32.CloseDataSource();
-                    this.Dsm.Twain32.SourceIndex=this._index;
+                if(this.Dsm.TwainX.SourceIndex!=this._index) {
+                    this.Dsm.TwainX.CloseDataSource();
+                    this.Dsm.TwainX.SourceIndex=this._index;
                 }
-                this.Dsm.Twain32.OpenDataSource();
-                return this.Dsm.Twain32;
+                this.Dsm.TwainX.OpenDataSource();
+                return this.Dsm.TwainX;
             }
         }
     }
