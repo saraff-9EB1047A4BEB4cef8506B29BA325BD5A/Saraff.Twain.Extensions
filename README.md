@@ -1,4 +1,4 @@
-# Saraff.TwainX.Extensions
+# Saraff.TwainX.NET Extensions
 Saraff.TwainX.NET Extensions (LINQ to TWAIN).
 
 Also, you can see: 
